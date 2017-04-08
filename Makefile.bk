@@ -1,0 +1,46 @@
+SOURCES := client.c defs.h getopt.c main.c s5.c s5.h server.c util.c \
+src/fs-poll.c src/heap-inl.h src/inet.c \
+src/queue.h src/threadpool.c src/uv-common.c src/uv-common.h \
+src/version.c src/unix/async.c src/unix/atomic-ops.h \
+src/unix/core.c src/unix/dl.c src/unix/fs.c \
+src/unix/getaddrinfo.c src/unix/getnameinfo.c \
+src/unix/internal.h src/unix/loop-watcher.c src/unix/loop.c \
+src/unix/pipe.c src/unix/poll.c src/unix/process.c \
+src/unix/signal.c src/unix/spinlock.h src/unix/stream.c \
+src/unix/tcp.c src/unix/thread.c src/unix/timer.c \
+src/unix/tty.c src/unix/udp.c \
+\
+\
+src/unix/proctitle.c \
+src/unix/linux-core.c \
+src/unix/linux-inotify.c src/unix/linux-syscalls.c \
+src/unix/linux-syscalls.h
+
+.PHONY: all clean
+
+s5-proxy:
+	gcc $(SOURCES) -o s5 -Iinclude -Isrc -lpthread -ldl
+
+clean:
+	$(RM) $(BUILDDIR)
+
+
+#src/win/async.c src/win/atomicops-inl.h \
+src/win/core.c src/win/dl.c src/win/error.c src/win/fs-event.c \
+src/win/fs.c src/win/getaddrinfo.c src/win/getnameinfo.c \
+src/win/handle.c src/win/handle-inl.h src/win/internal.h \
+src/win/loop-watcher.c src/win/pipe.c src/win/poll.c \
+src/win/process-stdio.c src/win/process.c src/win/req.c \
+src/win/req-inl.h src/win/signal.c src/win/stream.c \
+src/win/stream-inl.h src/win/tcp.c src/win/thread.c \
+src/win/timer.c src/win/tty.c src/win/udp.c src/win/util.c \
+src/win/winapi.c src/win/winapi.h src/win/winsock.c \
+src/win/winsock.h 
+#src/unix/aix.c 
+#src/unix/android-ifaddrs.c src/unix/pthread-fixes.c 
+#src/unix/darwin.c src/unix/darwin-proctitle.c 
+#src/unix/freebsd.c 
+#src/unix/netbsd.c src/unix/openbsd.c \
+#src/unix/sunos.c
+#src/unix/kqueue.c 
+#src/unix/fsevents.c 
