@@ -23,6 +23,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+// crash handle
+#include <signal.h>
+#include <unistd.h>
+#include <dep/crashhandler/crashhandler.h>
+#define FILE_PATH_LEN 1024
 
 #if HAVE_UNISTD_H
 #include <unistd.h>  /* getopt */
@@ -39,9 +44,34 @@ static void usage(void);
 
 static const char *progname = __FILE__;  /* Reset in main(). */
 
+// TODO
+void crash_proc(int sig)
+{
+  if (fork() != 0)
+  {
+      signal(sig, SIG_DFL);
+      kill(getpid(), sig);
+      return;
+  }
+
+  //child process
+  char* p_base = ".";
+  char  path_base[FILE_PATH_LEN];
+  char  filename[FILE_PATH_LEN];
+
+  sprintf(path_base, p_base);
+  p_base = path_base;
+
+  sprintf(filename, "%s/log", p_base);
+
+  handle_crash(filename, progname);
+}
+
 int main(int argc, char **argv) {
   server_config config;
   int err;
+
+  signal(SIGSEGV, crash_proc);
 
   progname = argv[0];
   memset(&config, 0, sizeof(config));

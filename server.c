@@ -198,7 +198,7 @@ static void on_connection(uv_stream_t *server, int status) {
 }
 
 int can_auth_none(const server_ctx *sx, const client_ctx *cx) {
-  return 0;
+  //return 0;
   return 1;
 }
 

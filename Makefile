@@ -18,7 +18,7 @@ uv/unix/linux-syscalls.h
 .PHONY: all clean
 
 s5-proxy:
-	gcc $(SOURCES) -o s5 -Iinclude -Iuv -lpthread -ldl -lrt -Lb64 -lb64 -rdynamic -std=gnu99 -DNDEBUG
+	gcc $(SOURCES) -o s5 dep/crashhandler/libcrashhandler.a -I. -Iinclude -Iuv -lpthread -ldl -lrt -Lb64 -lb64 -rdynamic -std=gnu99 -DNDEBUG
 
 clean:
 	find . -name "*.o" -exec rm {} \;
